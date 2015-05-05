@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TiaoTiao</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="left_tag">LEFT</string>
+</resources>
