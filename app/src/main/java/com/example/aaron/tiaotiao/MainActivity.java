@@ -136,15 +136,11 @@ public class MainActivity extends FragmentActivity {
                     fragmentManager.beginTransaction()
                             .replace(R.id.content_frame, new RecommendFragment())
                             .commit();
-
-                    mDrawerLayout.closeDrawers();
                     break;
                 case R.id.button_2:
                     fragmentManager.beginTransaction()
                             .replace(R.id.content_frame, new PartnerFragment())
                             .commit();
-
-                    mDrawerLayout.closeDrawers();
                     break;
                 case R.id.button_3:
                     fragmentManager.beginTransaction()
@@ -152,6 +148,8 @@ public class MainActivity extends FragmentActivity {
                             .commit();
                     break;
             }
+            mDrawerLayout.closeDrawers();
+
         }
     }
 }

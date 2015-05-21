@@ -19,7 +19,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="换宿"
+        android:textColor="@color/white"
         android:id="@+id/button_1"
         android:paddingLeft="30dp"
         android:background="@color/transparent"
@@ -30,7 +31,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="小伙伴"
+        android:textColor="@color/white"
         android:id="@+id/button_2"
         android:paddingLeft="30dp"
         android:background="@color/transparent"
@@ -41,7 +43,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="攻略"
+        android:textColor="@color/white"
         android:id="@+id/button_3"
         android:paddingLeft="30dp"
         android:background="@color/transparent"
