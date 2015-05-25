@@ -15,9 +15,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="6dp"
+        android:layout_margin="7dp"
         android:text="room_id"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="20sp"
         android:id="@+id/room_id"
         android:layout_below="@+id/room_img"
         android:layout_alignParentLeft="true"
@@ -26,19 +26,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="15sp"
+        android:layout_marginRight="15dp"
         android:text="room_price"
         android:id="@+id/room_price"
-        android:layout_below="@+id/room_img"
+        android:layout_alignBottom="@+id/room_id"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="6dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginLeft="7dp"
+        android:textSize="15sp"
         android:text="room_brief"
         android:id="@+id/room_brief"
         android:layout_below="@+id/room_id"
@@ -48,7 +48,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_margin="7dp"
+        android:textSize="15sp"
         android:text="room_period"
         android:id="@+id/room_period"
         android:layout_below="@+id/room_brief"

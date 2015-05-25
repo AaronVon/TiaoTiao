@@ -1,7 +1,7 @@
 package com.example.aaron.tiaotiao.Fragments;
 
 import android.app.Fragment;
-import android.content.Intent;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.aaron.tiaotiao.Adapters.EntriesAdapter;
-import com.example.aaron.tiaotiao.Parsers.RecommendXMLParser;
+import com.example.aaron.tiaotiao.Parsers.XMLParser;
 import com.example.aaron.tiaotiao.R;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -32,7 +32,7 @@ public class RecommendFragment extends Fragment {
 
     private LinkedList<HashMap<String, Object>> mLinkedList;
     private EntriesAdapter mAdapter;
-//    private ArrayAdapter<String> mAdapter;
+    private Context mContext;
     private PullToRefreshListView mPullToRefreshListView;
 
     static final String recommendURL = "http://s.mymusise.com/display/m";
@@ -49,7 +49,7 @@ public class RecommendFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.recommend_layout, container, false);
         mPullToRefreshListView = (PullToRefreshListView) rootView.findViewById(R.id.pull_refresh_list);
-
+        mContext = getActivity();
         initRecommendEntries();
 
         return rootView;
@@ -61,28 +61,28 @@ public class RecommendFragment extends Fragment {
 
         new AsyncTask() {
             NodeList nodeList;
-            RecommendXMLParser recommendXMLParser = null;
+            XMLParser xmlParser = null;
             Document doc = null;
 
             @Override
             protected Object doInBackground(Object[] params) {
-                recommendXMLParser = new RecommendXMLParser();
-                String xml = recommendXMLParser.getXmlFromUrl(recommendURL);
+                xmlParser = new XMLParser();
+                String xml = xmlParser.getXmlFromUrl(recommendURL);
                 Log.d("---XML------XML---", xml);
                 //get XML from recomendURL
 
-                doc = recommendXMLParser.getDomElement(xml);
+                doc = xmlParser.getDomElement(xml);
                 //get DOM elements
                 nodeList = doc.getElementsByTagName(KEY_HOSTEL);
                 //looping through all hostel nodes <hostel>
                 for (int i = 0; i < nodeList.getLength(); ++i) {
                     HashMap<String, Object> tmp = new HashMap<>();
                     Element e = (Element) nodeList.item(i);
-                    tmp.put(KEY_ID, recommendXMLParser.getValue(e, KEY_ID));
-                    tmp.put(KEY_IMG, recommendXMLParser.getValue(e, KEY_IMG));
-                    tmp.put(KEY_BRIEF, recommendXMLParser.getValue(e, KEY_BRIEF));
-                    tmp.put(KEY_PERIOD, recommendXMLParser.getValue(e, KEY_PERIOD));
-                    tmp.put(KEY_PRICE, recommendXMLParser.getValue(e, KEY_PRICE));
+                    tmp.put(KEY_ID, xmlParser.getValue(e, KEY_ID));
+                    tmp.put(KEY_IMG, xmlParser.getValue(e, KEY_IMG));
+                    tmp.put(KEY_BRIEF, xmlParser.getValue(e, KEY_BRIEF));
+                    tmp.put(KEY_PERIOD, xmlParser.getValue(e, KEY_PERIOD));
+                    tmp.put(KEY_PRICE, xmlParser.getValue(e, KEY_PRICE));
 
                     mLinkedList.add(tmp);
                 }
@@ -91,7 +91,7 @@ public class RecommendFragment extends Fragment {
 
             @Override
             protected void onPostExecute(Object o) {
-                mAdapter = new EntriesAdapter(getActivity(), mLinkedList);
+                mAdapter = new EntriesAdapter(mContext, mLinkedList);
                 mPullToRefreshListView.setAdapter(mAdapter);
             }
         }.execute();

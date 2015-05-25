@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.aaron.tiaotiao.R;
+import com.example.aaron.tiaotiao.WebImage.SetThumbnailIMG;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -61,7 +60,7 @@ public class EntriesAdapter extends BaseAdapter {
         ViewHolder holder = null;
         final Bitmap bitmap = null;
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.recommendentries, null);
+            convertView = mInflater.inflate(R.layout.recommendlist, null);
 
             holder = new ViewHolder();
             holder.holder_room_img = (ImageView) convertView.findViewById(R.id.room_img);
@@ -76,7 +75,8 @@ public class EntriesAdapter extends BaseAdapter {
         }
 
 
-        setImageView(holder, position);
+        //setImageView(holder, position);
+        new SetThumbnailIMG().execute(holder.holder_room_img, items.get(position).get(KEY_IMG).toString());
         holder.holder_room_id.setText(items.get(position).get(KEY_ID).toString());
         holder.holder_room_brief.setText(items.get(position).get(KEY_BRIEF).toString());
         holder.holder_room_period.setText(items.get(position).get(KEY_PERIOD).toString());

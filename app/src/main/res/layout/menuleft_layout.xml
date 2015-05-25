@@ -9,7 +9,6 @@
         android:layout_height="88dp"
         android:scaleType="fitXY"
         android:background="@color/transparent"
-        android:src="@drawable/me"
         android:id="@+id/userPic"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"

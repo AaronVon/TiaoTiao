@@ -1,5 +1,6 @@
 package com.example.aaron.tiaotiao;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -19,7 +20,8 @@ public class MainActivity extends FragmentActivity {
 
     private DrawerLayout mDrawerLayout;// 控件对象
     private Button button_1, button_2, button_3;
-
+    private Fragment fragment_1, fragment_2, fragment_3, current_Fragment;
+    private FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +31,11 @@ public class MainActivity extends FragmentActivity {
         initEvents();
 
         if (savedInstanceState == null) {
-            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new RecommendFragment())
+                    .replace(R.id.content_frame, fragment_1)
                     .commit();
+            current_Fragment = fragment_1;
         }
     }
 
@@ -45,6 +48,18 @@ public class MainActivity extends FragmentActivity {
         button_1.setOnClickListener(new myButtonClickListener());
         button_2.setOnClickListener(new myButtonClickListener());
         button_3.setOnClickListener(new myButtonClickListener());
+
+        fragment_1 = new RecommendFragment();
+        fragment_2 = new PartnerFragment();
+        fragment_3 = new GuideFragment();
+        fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.content_frame, fragment_3, "Tag_3")
+                .add(R.id.content_frame, fragment_2, "Tag_2")
+                .add(R.id.content_frame, fragment_1, "Tag_1")
+                .commit();
+        //最后add的显示在最上层
+        //save fragment instance to use when fragment changes
     }
 
     private void initEvents() {
@@ -130,22 +145,52 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public void onClick(View v) {
-            FragmentManager fragmentManager = getFragmentManager();
+            Fragment fragment = null;
+
             switch (v.getId()) {
                 case R.id.button_1:
+                    fragment = fragmentManager.findFragmentByTag("Tag_1");
+                    if (fragment == null) {
+                        fragment = new RecommendFragment();
+                        fragmentManager.beginTransaction()
+                                .add(R.id.content_frame, fragment, "Tag_1")
+                                .commit();
+                    }
                     fragmentManager.beginTransaction()
-                            .replace(R.id.content_frame, new RecommendFragment())
+                            .hide(current_Fragment)
+                            .show(fragment)
                             .commit();
+                    current_Fragment = fragment;
                     break;
+
                 case R.id.button_2:
+                    fragment = fragmentManager.findFragmentByTag("Tag_2");
+                    if (fragment == null) {
+                        fragment = new PartnerFragment();
+                        fragmentManager.beginTransaction()
+                                .add(R.id.content_frame, fragment, "Tag_2")
+                                .commit();
+                    }
                     fragmentManager.beginTransaction()
-                            .replace(R.id.content_frame, new PartnerFragment())
+                            .hide(current_Fragment)
+                            .show(fragment)
                             .commit();
+                    current_Fragment = fragment;
                     break;
+
                 case R.id.button_3:
+                    fragment = fragmentManager.findFragmentByTag("Tag_3");
+                    if (fragment == null) {
+                        fragment = new GuideFragment();
+                        fragmentManager.beginTransaction()
+                                .add(R.id.content_frame, fragment, "Tag_3")
+                                .commit();
+                    }
                     fragmentManager.beginTransaction()
-                            .replace(R.id.content_frame, new GuideFragment())
+                            .hide(current_Fragment)
+                            .show(fragment)
                             .commit();
+                    current_Fragment = fragment;
                     break;
             }
             mDrawerLayout.closeDrawers();

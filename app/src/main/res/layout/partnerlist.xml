@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="10dp"
+        android:id="@+id/user_thumbnail"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="user_id"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/user_id"
+        android:layout_alignTop="@+id/user_thumbnail"
+        android:layout_toRightOf="@+id/user_thumbnail"
+        android:layout_toEndOf="@+id/user_thumbnail" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="user_gender"
+        android:id="@+id/user_gender"
+        android:layout_alignTop="@+id/user_id"
+        android:layout_toRightOf="@+id/user_id"
+        android:layout_toEndOf="@+id/user_id" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="user_destination"
+        android:id="@+id/user_destination"
+        android:layout_below="@+id/user_id"
+        android:layout_alignLeft="@+id/user_id"
+        android:layout_alignStart="@+id/user_id" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="user_brief"
+        android:id="@+id/user_brief"
+        android:layout_below="@+id/user_destination"
+        android:layout_alignLeft="@+id/user_destination"
+        android:layout_alignStart="@+id/user_destination" />
+</RelativeLayout>

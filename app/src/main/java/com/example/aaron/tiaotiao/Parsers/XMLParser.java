@@ -31,8 +31,8 @@ import android.util.Log;
 /**
  * Created by Aaron on 5/21/15.
  */
-public class RecommendXMLParser {
-    public RecommendXMLParser() {
+public class XMLParser {
+    public XMLParser() {
     }
     /**
      * Getting XML from URL making HTTP request
@@ -42,14 +42,6 @@ public class RecommendXMLParser {
         StringBuffer xml = new StringBuffer();
 
         try {
-            /*// defaultHttpClient
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
-
-            HttpResponse httpResponse = httpClient.execute(httpPost);
-            HttpEntity httpEntity = httpResponse.getEntity();
-            xml = EntityUtils.toString(httpEntity);*/
-
             HttpURLConnection httpURLConnection = (HttpURLConnection) (new URL(url)).openConnection();
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
