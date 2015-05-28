@@ -64,7 +64,6 @@ public class GuideFragment extends Fragment {
             protected Object doInBackground(Object[] params) {
                 xmlParser = new XMLParser();
                 String xml = xmlParser.getXmlFromUrl(guideURL);
-
                 document = xmlParser.getDomElement(xml);
                 nodeList = document.getElementsByTagName(KEY_GUIDE);
 

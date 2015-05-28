@@ -22,6 +22,7 @@ public class PartnerListAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private LinkedList<HashMap<String, Object>> items;
+    private Context mContext;
 
     static final String KEY_IMG = "img";                //用户头像
     static final String KEY_ID = "id";                  //用户ID
@@ -30,11 +31,9 @@ public class PartnerListAdapter extends BaseAdapter {
     static final String KEY_BRIEF = "brief";
 
     public PartnerListAdapter(Context context, LinkedList<HashMap<String, Object>> items) {
-        if (context == null) {
-            Log.e("CONTEXT!!!!!!", "NULL\nNULL\nNULL\nNULL\nNULLNULLNULLNULLNULL");
-        }
         mInflater = LayoutInflater.from(context);
         this.items = items;
+        this.mContext = context;
     }
 
 
