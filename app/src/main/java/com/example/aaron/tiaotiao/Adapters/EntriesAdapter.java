@@ -58,7 +58,6 @@ public class EntriesAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        final Bitmap bitmap = null;
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.recommendlist, null);
 
@@ -83,28 +82,6 @@ public class EntriesAdapter extends BaseAdapter {
         holder.holder_room_price.setText(items.get(position).get(KEY_PRICE).toString());
 
         return convertView;
-    }
-
-    private void setImageView(final ViewHolder holder, final int position) {
-        final Bitmap[] bitmap = {null};
-        new AsyncTask() {
-
-            @Override
-            protected Object doInBackground(Object[] params) {
-                try {
-                    HttpURLConnection httpURLConnection = (HttpURLConnection) (new URL(items.get(position).get(KEY_IMG).toString())).openConnection();
-                    bitmap[0] = BitmapFactory.decodeStream(httpURLConnection.getInputStream());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                holder.holder_room_img.setImageBitmap(bitmap[0]);
-            }
-        }.execute();
     }
 
 

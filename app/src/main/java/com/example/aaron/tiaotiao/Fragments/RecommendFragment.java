@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aaron.tiaotiao.Adapters.EntriesAdapter;
 import com.example.aaron.tiaotiao.Parsers.XMLParser;
@@ -44,6 +45,7 @@ public class RecommendFragment extends Fragment {
     static final String KEY_BRIEF = "brief";    //旅店摘要（如简介、位置信息等）
     static final String KEY_PERIOD = "period";  //打工时间
     static final String KEY_PRICE = "price";    //旅店价格
+    static final String KEY_JUMP = "jump";      //二级请求
 
     @Nullable
     @Override
@@ -69,7 +71,7 @@ public class RecommendFragment extends Fragment {
             protected Object doInBackground(Object[] params) {
                 xmlParser = new XMLParser();
                 String xml = xmlParser.getXmlFromUrl(recommendURL);
-                Log.d("---XML------XML---", xml);
+//                Log.d("---XML------XML---", xml);
                 //get XML from recomendURL
 
                 doc = xmlParser.getDomElement(xml);
@@ -84,6 +86,7 @@ public class RecommendFragment extends Fragment {
                     tmp.put(KEY_BRIEF, xmlParser.getValue(e, KEY_BRIEF));
                     tmp.put(KEY_PERIOD, xmlParser.getValue(e, KEY_PERIOD));
                     tmp.put(KEY_PRICE, xmlParser.getValue(e, KEY_PRICE));
+                    tmp.put(KEY_JUMP, xmlParser.getValue(e, KEY_JUMP));
 
                     mLinkedList.add(tmp);
                 }
@@ -102,22 +105,12 @@ public class RecommendFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ListView listView = (ListView) parent;
-                /*HashMap<String, Object> hashMap = (HashMap<String, Object>) listView.getItemAtPosition(position);
+                position -= listView.getHeaderViewsCount();
 
-                int pic = (int) hashMap.get("img");
-                String room_id = (String) hashMap.get("room_id");
-                String room_des = (String) hashMap.get("room_des");*/
+                HashMap<String, Object> hashMap = (HashMap<String, Object>) mLinkedList.get(position);
+//                Toast.makeText(getActivity(), hashMap.get(KEY_JUMP).toString(), Toast.LENGTH_SHORT).show();
 
-                /*int pic = Integer.parseInt(view.findViewById(R.id.entriesImageView).getId());
-                String room_id = view.findViewById(R.id.room_id).toString();
-                String room_des = view.findViewById(R.id.room_description).toString();*/
 
-//                Intent intent = new Intent(getActivity(), RecommendAct.class);
-                /*intent.putExtra("img", pic);
-                intent.putExtra("room_id", room_id);
-                intent.putExtra("room_des", room_des);*/
-
-//                startActivity(intent);
             }
         });
 

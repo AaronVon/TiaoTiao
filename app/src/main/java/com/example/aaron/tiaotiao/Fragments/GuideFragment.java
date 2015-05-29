@@ -41,6 +41,7 @@ public class GuideFragment extends Fragment {
     static final String KEY_ID = "id";
     static final String KEY_TITLE = "title";
     static final String KEY_BRIEF = "brief";
+    static final String KEY_JUMP = "jump";      //二级请求
 
     @Nullable
     @Override
@@ -76,6 +77,7 @@ public class GuideFragment extends Fragment {
                     map.put(KEY_IMG, xmlParser.getValue(e, KEY_IMG));
                     map.put(KEY_BRIEF, xmlParser.getValue(e, KEY_BRIEF));
                     map.put(KEY_ID, xmlParser.getValue(e, KEY_ID));
+                    map.put(KEY_JUMP, xmlParser.getValue(e, KEY_JUMP));
 
                     mLinkedList.add(map);
                 }

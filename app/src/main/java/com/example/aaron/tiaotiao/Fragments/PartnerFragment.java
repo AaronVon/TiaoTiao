@@ -52,6 +52,7 @@ public class PartnerFragment extends Fragment{
     static final String KEY_THUMBNAIL = "img";
     static final String KEY_BRIEF = "brief";
     static final String KEY_DESTINATION = "destination";
+    static final String KEY_JUMP = "jump";      //二级请求
 
     @Nullable
     @Override
@@ -88,7 +89,7 @@ public class PartnerFragment extends Fragment{
                     map.put(KEY_GENDER, xmlParser.getValue(e, KEY_GENDER));
                     map.put(KEY_DESTINATION, xmlParser.getValue(e, KEY_DESTINATION));
                     map.put(KEY_BRIEF, xmlParser.getValue(e, KEY_BRIEF));
-
+                    map.put(KEY_JUMP, xmlParser.getValue(e, KEY_JUMP));
                     mLinkedList.add(map);
                 }
                 return null;
