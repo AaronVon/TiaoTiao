@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.aaron.tiaotiao.Activities.AccountActivity;
 import com.example.aaron.tiaotiao.Fragments.GuideFragment;
@@ -38,6 +40,7 @@ public class MainActivity extends FragmentActivity {
                     .replace(R.id.content_frame, fragment_1)
                     .commit();
             current_Fragment = fragment_1;
+            ((TextView) findViewById(R.id.fragment_title)).setText("换宿");
         }
     }
 
@@ -62,6 +65,9 @@ public class MainActivity extends FragmentActivity {
                 .commit();
         //最后add的显示在最上层
         //save fragment instance to use when fragment changes
+
+        (findViewById(R.id.titlebar_button_left)).setOnClickListener(new myButtonClickListener());
+        (findViewById(R.id.userPic)).setOnClickListener(new myButtonClickListener());
     }
 
     private void initEvents() {
@@ -163,6 +169,8 @@ public class MainActivity extends FragmentActivity {
                             .show(fragment)
                             .commit();
                     current_Fragment = fragment;
+                    ((TextView) findViewById(R.id.fragment_title)).setText("换宿");
+                    mDrawerLayout.closeDrawers();
                     break;
 
                 case R.id.button_2:
@@ -178,6 +186,8 @@ public class MainActivity extends FragmentActivity {
                             .show(fragment)
                             .commit();
                     current_Fragment = fragment;
+                    ((TextView) findViewById(R.id.fragment_title)).setText("小伙伴");
+                    mDrawerLayout.closeDrawers();
                     break;
 
                 case R.id.button_3:
@@ -193,16 +203,21 @@ public class MainActivity extends FragmentActivity {
                             .show(fragment)
                             .commit();
                     current_Fragment = fragment;
+                    ((TextView) findViewById(R.id.fragment_title)).setText("攻略");
+                    mDrawerLayout.closeDrawers();
+                    break;
+
+                case R.id.userPic:
+                    startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+                    mDrawerLayout.closeDrawers();
+                    break;
+
+                case R.id.titlebar_button_left:
+                    mDrawerLayout.openDrawer(Gravity.LEFT);
                     break;
             }
-            mDrawerLayout.closeDrawers();
 
         }
     }
 
-    //start account activity when press user thumbnail
-    public void AccountAct(View view) {
-        Intent intent = new Intent(getApplication(), AccountActivity.class);
-        startActivity(intent);
-    }
 }

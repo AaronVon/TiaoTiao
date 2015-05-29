@@ -35,18 +35,6 @@ public class MenuLeftFragment extends Fragment {
     }
 
     private void initUserImg() {
-        toRoundImg roundImg = new toRoundImg("http://www.eoeandroid.com/uc_server/avatar.php?uid=1112756&size=middle");
-        try {
-            Bitmap bitmap = (Bitmap) roundImg.execute().get();
-            if (bitmap == null) {
-                Log.d("bitmap errorrrrrr", "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-            }
-            userImageView.setImageBitmap(bitmap);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
 
     }
 }

@@ -7,13 +7,47 @@
     android:background="@drawable/main_background"
     tools:context=".MainActivity">
 
-    <FrameLayout
-        android:id="@+id/content_frame"
-        android:background="@color/white"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </FrameLayout>
+        <FrameLayout
+            android:background="@color/titlebar_background"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <Button
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/titlebar_menu_selector"
+                android:id="@+id/titlebar_button_left"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:id="@+id/fragment_title"
+                android:padding="7dp"
+                android:text=""
+                android:textColor="#999999"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:id="@+id/content_frame"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+    </LinearLayout>
 
     <fragment
         android:id="@+id/left_menu"

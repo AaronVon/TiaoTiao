@@ -3,28 +3,70 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/image_thumbnail"
-        android:layout_gravity="center_horizontal" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/user_nickname"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/user_openID"
+        android:text="选择第三方登录方式"
         android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_marginRight="20dp"
+
+            android:layout_marginTop="10dp"
+            android:src="@drawable/qq"
+            android:background="@color/transparent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:id="@+id/QQ_Login"
+            android:layout_gravity="center_horizontal" />
+
+        <ImageButton
+            android:layout_marginTop="10dp"
+            android:src="@drawable/weibo"
+            android:background="@color/transparent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:id="@+id/weibo_Login"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <Button
+        android:layout_marginTop="30dp"
+        android:background="@color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="马上注册"
+        android:textSize="20sp"
+        android:id="@+id/register"
+        android:layout_gravity="center_horizontal" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_gravity="center_horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text=""
+            android:id="@+id/test_text" />
+    </ScrollView>
+
 
 </LinearLayout>

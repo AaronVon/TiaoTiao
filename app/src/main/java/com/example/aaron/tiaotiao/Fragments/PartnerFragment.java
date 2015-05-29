@@ -25,9 +25,6 @@ import android.widget.TextView;
 import com.example.aaron.tiaotiao.Adapters.PartnerListAdapter;
 import com.example.aaron.tiaotiao.Parsers.XMLParser;
 import com.example.aaron.tiaotiao.R;
-import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
-import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
-import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.SwipeDismissAdapter;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

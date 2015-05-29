@@ -1,6 +1,7 @@
 package com.example.aaron.tiaotiao.Adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,9 @@ import com.example.aaron.tiaotiao.WebImage.SetThumbnailIMG;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.concurrent.ExecutionException;
+
+import com.example.aaron.tiaotiao.WebImage.toRoundImg;
 
 /**
  * Created by Aaron on 5/24/15.
@@ -70,7 +74,17 @@ public class PartnerListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        new SetThumbnailIMG().execute(holder.user_thumbnail, items.get(position).get(KEY_IMG).toString());
+//        new SetThumbnailIMG().execute(holder.user_thumbnail, items.get(position).get(KEY_IMG).toString());
+        toRoundImg roundImg = new toRoundImg(items.get(position).get(KEY_IMG).toString());
+
+        try {
+            Bitmap bitmap = (Bitmap) roundImg.execute().get();
+            holder.user_thumbnail.setImageBitmap(bitmap);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         holder.user_id.setText(items.get(position).get(KEY_ID).toString());
         holder.user_gender.setText(items.get(position).get(KEY_GENDER).toString());
         holder.user_destination.setText(items.get(position).get(KEY_DESTINATION).toString());

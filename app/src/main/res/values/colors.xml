@@ -2,5 +2,5 @@
 <resources>
     <color name="transparent">#00000000</color>
     <color name="white">#FFFF</color>
-
+    <color name="titlebar_background">#8dcaf6</color>
 </resources>

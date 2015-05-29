@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="20sp"
         android:text="user_id"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="15dp"
@@ -29,30 +29,30 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="13sp"
         android:text="user_gender"
         android:id="@+id/user_gender"
-        android:layout_alignTop="@+id/user_id"
+        android:layout_alignBottom="@+id/user_id"
         android:layout_toRightOf="@+id/user_id"
         android:layout_toEndOf="@+id/user_id" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="17sp"
         android:text="user_destination"
         android:id="@+id/user_destination"
-        android:layout_below="@+id/user_id"
-        android:layout_alignLeft="@+id/user_id"
-        android:layout_alignStart="@+id/user_id" />
+        android:layout_alignBottom="@+id/user_thumbnail"
+        android:layout_toRightOf="@+id/user_thumbnail"
+        android:layout_toEndOf="@+id/user_thumbnail" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:text="user_brief"
         android:id="@+id/user_brief"
-        android:layout_below="@+id/user_destination"
-        android:layout_alignLeft="@+id/user_destination"
-        android:layout_alignStart="@+id/user_destination" />
+        android:layout_below="@+id/user_gender"
+        android:layout_toRightOf="@+id/user_thumbnail"
+        android:layout_toEndOf="@+id/user_thumbnail" />
 </RelativeLayout>
