@@ -79,7 +79,7 @@ public class EntriesAdapter extends BaseAdapter {
         holder.holder_room_id.setText(items.get(position).get(KEY_ID).toString());
         holder.holder_room_brief.setText(items.get(position).get(KEY_BRIEF).toString());
         holder.holder_room_period.setText(items.get(position).get(KEY_PERIOD).toString());
-        holder.holder_room_price.setText(items.get(position).get(KEY_PRICE).toString());
+        holder.holder_room_price.setText("￥"+items.get(position).get(KEY_PRICE).toString());
 
         return convertView;
     }

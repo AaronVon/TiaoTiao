@@ -4,17 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
-        android:layout_width="88dp"
-        android:layout_height="88dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/tiaotiao"
-        android:background="@color/transparent"
-        android:id="@+id/userPic"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="40dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageButton
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/tiaotiao"
+            android:background="@color/transparent"
+            android:id="@+id/userPic"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="40dp"/>
+
+        <TextView
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="马上登录"
+            android:id="@+id/user_name"
+            android:layout_alignBottom="@+id/userPic"
+            android:layout_alignLeft="@+id/userPic"
+            android:layout_alignStart="@+id/userPic" />
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
@@ -51,17 +70,6 @@
         android:layout_below="@+id/button_2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="马上登录"
-        android:id="@+id/user_name"
-        android:layout_above="@+id/button_1"
-        android:layout_alignLeft="@+id/userPic"
-        android:layout_alignStart="@+id/userPic"
-        android:layout_below="@id/userPic"/>
 
 
 </RelativeLayout>

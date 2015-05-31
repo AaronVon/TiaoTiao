@@ -7,11 +7,13 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aaron.tiaotiao.Activities.AccountActivity;
 import com.example.aaron.tiaotiao.Fragments.GuideFragment;
@@ -26,6 +28,8 @@ public class MainActivity extends FragmentActivity {
     private Button button_1, button_2, button_3;
     private Fragment fragment_1, fragment_2, fragment_3, current_Fragment;
     private FragmentManager fragmentManager;
+
+    long exitTime = 0;//calvulate time to exit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,7 @@ public class MainActivity extends FragmentActivity {
             ((TextView) findViewById(R.id.fragment_title)).setText("换宿");
         }
     }
+
 
     private void initView() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.mDrawerLayout);
@@ -209,7 +214,7 @@ public class MainActivity extends FragmentActivity {
 
                 case R.id.userPic:
                     startActivity(new Intent(getApplicationContext(), AccountActivity.class));
-                    mDrawerLayout.closeDrawers();
+//                    mDrawerLayout.closeDrawers();
                     break;
 
                 case R.id.titlebar_button_left:
@@ -220,4 +225,24 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && event.getRepeatCount() == 0) {
+                this.exitApp();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exitApp() {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.aaron.tiaotiao.Fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.aaron.tiaotiao.Activities.PartnerJump;
 import com.example.aaron.tiaotiao.Adapters.PartnerListAdapter;
 import com.example.aaron.tiaotiao.Parsers.XMLParser;
 import com.example.aaron.tiaotiao.R;
@@ -81,7 +83,7 @@ public class PartnerFragment extends Fragment{
                 document = xmlParser.getDomElement(xml);
                 nodeList = document.getElementsByTagName(KEY_PARTNER);
 
-                for (int i = 0; i < nodeList.getLength(); ++i) {
+                for (int i = 0; i < nodeList.getLength() - 5; ++i) {
                     HashMap<String, Object> map = new HashMap<String, Object>();
                     Element e = (Element) nodeList.item(i);
                     map.put(KEY_ID, xmlParser.getValue(e, KEY_ID));
@@ -98,13 +100,20 @@ public class PartnerFragment extends Fragment{
             @Override
             protected void onPostExecute(Object o) {
                 mAdapter = new PartnerListAdapter(mContext, mLinkedList);
-
                 mListView.setAdapter(mAdapter);
 
                 mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        ListView listView = (ListView) parent;
+                        position -= listView.getHeaderViewsCount();
 
+                        HashMap<String, Object> hashMap = (HashMap<String, Object>) mLinkedList.get(position);
+                        Intent intent = new Intent(mContext, PartnerJump.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(KEY_JUMP, hashMap.get(KEY_JUMP).toString());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     }
                 });
             }

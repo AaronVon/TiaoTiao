@@ -1,7 +1,9 @@
 package com.example.aaron.tiaotiao.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +28,7 @@ import com.tencent.tauth.UiError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URI;
 import java.util.logging.LogRecord;
 
 
@@ -62,16 +65,14 @@ public class AccountActivity extends ActionBarActivity {
             int id = v.getId();
             switch (id) {
                 case R.id.QQ_Login:
-//                    Toast.makeText(AccountActivity.this, "QQ login", Toast.LENGTH_SHORT).show();
                     doLoginQQ();
                     break;
                 case R.id.weibo_Login:
-                    Toast.makeText(getApplicationContext(), "Weibo login", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "即将接入", Toast.LENGTH_SHORT).show();
                     doLoginWeibo();
                     break;
 
                 case R.id.register:
-                    Toast.makeText(getApplicationContext(), "register", Toast.LENGTH_SHORT).show();
                     doLoginRegister();
                     break;
             }
@@ -92,7 +93,7 @@ public class AccountActivity extends ActionBarActivity {
                 final Message message = new Message();
                 message.obj = o;
                 message.what = 0;
-                mHandler.sendMessage(message);
+//                mHandler.sendMessage(message);
 
                 QQToken qqToken = mTencent.getQQToken();
                 UserInfo info = new UserInfo(getApplicationContext(), qqToken);
@@ -102,7 +103,7 @@ public class AccountActivity extends ActionBarActivity {
                         Message msg = new Message();
                         msg.obj = o;
                         msg.what = 1;
-                        mHandler.sendMessage(msg);
+//                        mHandler.sendMessage(msg);
                     }
 
                     @Override
@@ -135,7 +136,9 @@ public class AccountActivity extends ActionBarActivity {
     }
 
     private void doLoginRegister() {
-
+        Uri uri = Uri.parse("http://s.mymusise.com/login/T_register");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
     Handler mHandler = new Handler() {

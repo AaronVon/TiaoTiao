@@ -21,7 +21,6 @@
 
         <ImageButton
             android:layout_marginRight="20dp"
-
             android:layout_marginTop="10dp"
             android:src="@drawable/qq"
             android:background="@color/transparent"

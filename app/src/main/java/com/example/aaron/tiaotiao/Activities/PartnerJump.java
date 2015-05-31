@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,61 +18,62 @@ import android.widget.Toast;
 import com.example.aaron.tiaotiao.Parsers.XMLParser;
 import com.example.aaron.tiaotiao.R;
 import com.example.aaron.tiaotiao.WebImage.SetThumbnailIMG;
+import com.example.aaron.tiaotiao.WebImage.toRoundImg;
 
-import org.apache.http.protocol.HTTP;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.text.BreakIterator;
+import java.util.concurrent.ExecutionException;
 
 /**
- * Created by Aaron on 5/29/15.
+ * Created by Aaron on 5/30/15.
  */
-public class RecommendJump extends Activity{
-
+public class PartnerJump extends Activity {
     static final String KEY_JUMP = "jump";
-    static final String NODE_NAME = "Display";
+    static final String NODE_NAME = "Partner";
 
-    static final String KEY_IMG = "img";
-    static final String KEY_TITLE = "title";
-    static final String KEY_PRICE = "price_avg";
-    static final String KEY_HOSTELNAME = "hotelname";
     static final String KEY_USERNAME = "username";
+    static final String KEY_TITLE = "title";
+    static final String KEY_GENDER = "gender";
     static final String KEY_DATE = "date";
-    static final String KEY_PERIOD = "period";
-    static final String KEY_CONTENT = "content";
+    static final String KEY_DESTINATION = "destination";
+    static final String KEY_IMG = "img";
     String jump_url = "";
 
-    Button recommendjump_follow, recommendjump_message;
+    ImageView user_img;
+    TextView username, title, gender, date, destination;
+
+    Button follow_button, message_button;
 
     private Context mContext;
-
-    //layout
-    private class ViewHolder {
-        private ImageView hostel_img;
-        private TextView hostel_title, price_avg, hostel_name, user_name, date, period, content;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recommend_jump);
+        setContentView(R.layout.partner_jump);
         mContext = getApplicationContext();
 
         initView();
-
     }
 
     private void initView() {
-        Bundle bundle = getIntent().getExtras();
-        jump_url = bundle.getString(KEY_JUMP);
-        Log.d("URL_1", jump_url);
+        user_img = (ImageView) findViewById(R.id.partner_user_img);
+        username = (TextView) findViewById(R.id.partner_username);
+        title = (TextView) findViewById(R.id.partner_title);
+        gender = (TextView) findViewById(R.id.partner_gender);
+        destination = (TextView) findViewById(R.id.partner_destination);
 
-        //解析中文 url
+        follow_button = (Button) findViewById(R.id.partnerjump_follow);
+        message_button = (Button) findViewById(R.id.partnerjump_message);
+
+        follow_button.setOnClickListener(new MyButtonClickListener());
+        message_button.setOnClickListener(new MyButtonClickListener());
+        Bundle bundle = getIntent().getExtras();
+        jump_url = bundle.getString(KEY_JUMP).toString();
+
         try {
             jump_url = URLEncoder.encode(jump_url, "utf-8");
             jump_url = jump_url.replaceAll("%3A", ":");
@@ -81,22 +83,6 @@ public class RecommendJump extends Activity{
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        final ViewHolder holder = new ViewHolder();
-        holder.hostel_img = (ImageView) findViewById(R.id.hostel_img);
-        holder.hostel_title = (TextView) findViewById(R.id.hostel_title);
-        holder.price_avg = (TextView) findViewById(R.id.price_avg);
-        holder.hostel_name = (TextView) findViewById(R.id.hostel_name);
-        holder.user_name = (TextView) findViewById(R.id.user_name);
-        holder.date = (TextView) findViewById(R.id.date);
-        holder.period = (TextView) findViewById(R.id.period);
-        holder.content = (TextView) findViewById(R.id.content);
-
-        //button
-        recommendjump_follow = (Button) findViewById(R.id.recommendjump_follow);
-        recommendjump_message = (Button) findViewById(R.id.recommendjump_message);
-        recommendjump_follow.setOnClickListener(new MyButtonClickListener());
-        recommendjump_message.setOnClickListener(new MyButtonClickListener());
-
         new AsyncTask() {
             NodeList nodeList;
             XMLParser xmlParser;
@@ -106,28 +92,32 @@ public class RecommendJump extends Activity{
             @Override
             protected Object doInBackground(Object[] params) {
                 xmlParser = new XMLParser();
-
                 String xml = xmlParser.getXmlFromUrl(jump_url);
-                //xml format error
                 document = xmlParser.getDomElement(xml);
                 nodeList = document.getElementsByTagName(NODE_NAME);
 
                 //there is only one node in nodelist, so it would be much easier
                 element = (Element) nodeList.item(0);
-
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
-                new SetThumbnailIMG().execute(holder.hostel_img, xmlParser.getValue(element, KEY_IMG).toString());
-                holder.hostel_title.setText(xmlParser.getValue(element, KEY_TITLE).toString());
-                holder.price_avg.setText("￥"+xmlParser.getValue(element, KEY_PRICE).toString());
-                holder.hostel_name.setText(xmlParser.getValue(element, KEY_HOSTELNAME).toString());
-                holder.user_name.setText(xmlParser.getValue(element, KEY_USERNAME).toString());
-                holder.date.setText(xmlParser.getValue(element, KEY_DATE).toString());
-                holder.period.setText(xmlParser.getValue(element, KEY_PERIOD).toString());
-                holder.content.setText(xmlParser.getValue(element, KEY_CONTENT).toString());
+                new SetThumbnailIMG().execute(user_img, xmlParser.getValue(element, KEY_IMG).toString());
+                toRoundImg roundImg = new toRoundImg(xmlParser.getValue(element, KEY_IMG).toString());
+                Bitmap bitmap = null;
+                try {
+                    bitmap = (Bitmap) roundImg.execute().get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                user_img.setImageBitmap(bitmap);
+                username.setText(xmlParser.getValue(element, KEY_USERNAME).toString());
+                title.setText(xmlParser.getValue(element, KEY_TITLE).toString());
+                gender.setText(xmlParser.getValue(element, KEY_GENDER).toString());
+                destination.setText(xmlParser.getValue(element, KEY_DESTINATION).toString());
 
             }
         }.execute();
@@ -138,22 +128,23 @@ public class RecommendJump extends Activity{
         public void onClick(View v) {
             int id = v.getId();
             switch (id) {
-                case R.id.recommendjump_follow:
+                case R.id.partnerjump_follow:
                     Toast.makeText(mContext, "已关注", Toast.LENGTH_SHORT).show();
 
                     break;
-                case R.id.recommendjump_message:
-                    new AlertDialog.Builder(RecommendJump.this)
+                case R.id.partnerjump_message:
+                    new AlertDialog.Builder(PartnerJump.this)
                             .setTitle("打个招呼")
-                            .setView(new EditText(RecommendJump.this))
+                            .setView(new EditText(PartnerJump.this))
                             .setPositiveButton("发送", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(RecommendJump.this, "已发送", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(PartnerJump.this, "已发送", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .setNegativeButton("取消", null)
                             .show();
+
                     break;
             }
         }

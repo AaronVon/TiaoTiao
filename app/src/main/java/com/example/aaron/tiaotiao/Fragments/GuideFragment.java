@@ -2,6 +2,7 @@ package com.example.aaron.tiaotiao.Fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,10 +13,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import com.example.aaron.tiaotiao.Activities.GuideJump;
 import com.example.aaron.tiaotiao.Adapters.GuideListAdapter;
 import com.example.aaron.tiaotiao.Parsers.XMLParser;
 import com.example.aaron.tiaotiao.R;
@@ -92,7 +96,15 @@ public class GuideFragment extends Fragment {
                 mPullToRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        ListView listView = (ListView) parent;
+                        position -= listView.getHeaderViewsCount();
 
+                        HashMap<String, Object> hashMap = (HashMap<String, Object>) mLinkedList.get(position);
+                        Intent intent = new Intent(mContext, GuideJump.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(KEY_JUMP, hashMap.get(KEY_JUMP).toString());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     }
                 });
 
@@ -130,6 +142,7 @@ public class GuideFragment extends Fragment {
                 case "top":
                     break;
                 case "bottom":
+                    Toast.makeText(mContext, "到底了哟", Toast.LENGTH_SHORT).show();
                     break;
             }
             mAdapter.notifyDataSetChanged();

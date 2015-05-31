@@ -2,6 +2,7 @@ package com.example.aaron.tiaotiao.Fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aaron.tiaotiao.Activities.RecommendJump;
 import com.example.aaron.tiaotiao.Adapters.EntriesAdapter;
 import com.example.aaron.tiaotiao.Parsers.XMLParser;
 import com.example.aaron.tiaotiao.R;
@@ -108,9 +110,11 @@ public class RecommendFragment extends Fragment {
                 position -= listView.getHeaderViewsCount();
 
                 HashMap<String, Object> hashMap = (HashMap<String, Object>) mLinkedList.get(position);
-//                Toast.makeText(getActivity(), hashMap.get(KEY_JUMP).toString(), Toast.LENGTH_SHORT).show();
-
-
+                Intent intent = new Intent(mContext, RecommendJump.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(KEY_JUMP, hashMap.get(KEY_JUMP).toString());
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -151,18 +155,7 @@ public class RecommendFragment extends Fragment {
                     mLinkedList.addFirst(tmp);
                     break;*/
                 case "bottom":
-                    /*HashMap<String, Object> tmp = new HashMap<>();
-                    tmp.put("img", R.drawable.hostel4);
-                    tmp.put("room_id", "北京瓦当国际青年旅舍");
-                    tmp.put("room_des", "北京市西城区新街口南大街北帽胡同8号\nTel-010-66537539");
-                    mLinkedList.addLast(tmp);
-
-                    HashMap<String, Object> ex = new HashMap<>();
-                    ex.put("img", R.drawable.hostel5);
-                    ex.put("room_id", "北京one一个青年旅舍");
-                    ex.put("room_des", "北京市丰台区大红门北路51号\nTel-010-52228307");
-                    mLinkedList.addLast(ex);*/
-
+                    Toast.makeText(mContext, "到底了哟", Toast.LENGTH_SHORT).show();
                     break;
             }
             mAdapter.notifyDataSetChanged();
