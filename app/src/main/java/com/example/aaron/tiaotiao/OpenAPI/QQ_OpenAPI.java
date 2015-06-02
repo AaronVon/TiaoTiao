@@ -19,9 +19,13 @@ public class QQ_OpenAPI extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getApplicationContext();
 
+        init();
         doLogin();
+    }
+
+    private void init() {
+        mContext = getApplicationContext();
     }
 
     private void doLogin() {
@@ -29,6 +33,8 @@ public class QQ_OpenAPI extends Activity {
         mTencent.login(this, "all", new IUiListener() {
             @Override
             public void onComplete(Object o) {
+                //get user info
+                //to do
                 Toast.makeText(mContext, "login successfully", Toast.LENGTH_SHORT).show();
                 finish();
             }
