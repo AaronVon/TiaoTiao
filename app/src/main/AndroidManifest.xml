@@ -19,10 +19,12 @@
             </intent-filter>
         </activity>
 
+        //my activities
         <activity android:name=".Activities.AccountActivity" />
         <activity android:name=".Activities.RecommendJump" />
         <activity android:name=".Activities.PartnerJump" />
         <activity android:name=".Activities.GuideJump" />
+        <activity android:name=".OpenAPI.QQ_OpenAPI" />
 
         <activity  android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"

@@ -1,24 +1,25 @@
 package com.example.aaron.tiaotiao.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.aaron.tiaotiao.MainActivity;
+import com.example.aaron.tiaotiao.OpenAPI.Constants;
+import com.example.aaron.tiaotiao.OpenAPI.QQ_OpenAPI;
 import com.example.aaron.tiaotiao.R;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WeiboAuthListener;
+import com.sina.weibo.sdk.auth.sso.SsoHandler;
+import com.sina.weibo.sdk.exception.WeiboException;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.tauth.IUiListener;
@@ -27,9 +28,6 @@ import com.tencent.tauth.UiError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.URI;
-import java.util.logging.LogRecord;
 
 
 /**
@@ -55,7 +53,6 @@ public class AccountActivity extends ActionBarActivity {
         Register_Button.setOnClickListener(new ButtonClickListener());
 
         textView = (TextView) findViewById(R.id.test_text);
-//        doLogin();
     }
 
 
@@ -80,8 +77,9 @@ public class AccountActivity extends ActionBarActivity {
     }
 
     private void doLoginQQ() {
+        startActivity(new Intent(this, QQ_OpenAPI.class));
 
-        String mAppid = "1104591741";
+        /*String mAppid = "1104591741";
         final Tencent mTencent = Tencent.createInstance(mAppid, getApplicationContext());
 
         mTencent.login(AccountActivity.this, "all", new IUiListener() {
@@ -93,7 +91,7 @@ public class AccountActivity extends ActionBarActivity {
                 final Message message = new Message();
                 message.obj = o;
                 message.what = 0;
-//                mHandler.sendMessage(message);
+                mHandler.sendMessage(message);
 
                 QQToken qqToken = mTencent.getQQToken();
                 UserInfo info = new UserInfo(getApplicationContext(), qqToken);
@@ -103,7 +101,7 @@ public class AccountActivity extends ActionBarActivity {
                         Message msg = new Message();
                         msg.obj = o;
                         msg.what = 1;
-//                        mHandler.sendMessage(msg);
+                        mHandler.sendMessage(msg);
                     }
 
                     @Override
@@ -127,12 +125,13 @@ public class AccountActivity extends ActionBarActivity {
             public void onCancel() {
 
             }
-        });
+        });*/
 
 
     }
 
     private void doLoginWeibo() {
+
     }
 
     private void doLoginRegister() {
