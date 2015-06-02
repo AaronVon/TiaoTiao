@@ -25,6 +25,7 @@
         <activity android:name=".Activities.PartnerJump" />
         <activity android:name=".Activities.GuideJump" />
         <activity android:name=".OpenAPI.QQ_OpenAPI" />
+        <activity android:name=".OpenAPI.Weibo_OpenAPI" />
 
         <activity  android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"

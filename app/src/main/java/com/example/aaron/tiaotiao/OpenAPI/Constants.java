@@ -5,11 +5,11 @@ package com.example.aaron.tiaotiao.OpenAPI;
  */
 public interface Constants {
     //Weibo
-    public static final String Weibo_APP_KEY = "524500046";
-    public static final String Weibo_REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
-    public static final String Weibo_SCOPE = "show";
+    String Weibo_APP_KEY = "524500046";
+    String Weibo_REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
+    String Weibo_SCOPE = "show";
 
     //QQ
-    public static final String QQ_APP_ID = "1104591741";
+    String QQ_APP_ID = "1104591741";
 
 }
