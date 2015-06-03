@@ -26,6 +26,13 @@
         <activity android:name=".Activities.GuideJump" />
         <activity android:name=".OpenAPI.QQ_OpenAPI" />
         <activity android:name=".OpenAPI.Weibo_OpenAPI" />
+        //sina weibo sdk activity, have to add this by hand
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" >
+        </activity>
 
         <activity  android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"

@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aaron.tiaotiao.OpenAPI.AccessTokenKeeper_Weibo;
 import com.example.aaron.tiaotiao.OpenAPI.Constants;
 import com.example.aaron.tiaotiao.OpenAPI.QQ_OpenAPI;
+import com.example.aaron.tiaotiao.OpenAPI.Weibo_OpenAPI;
 import com.example.aaron.tiaotiao.R;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -28,6 +31,8 @@ import com.tencent.tauth.UiError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -53,6 +58,7 @@ public class AccountActivity extends ActionBarActivity {
         Register_Button.setOnClickListener(new ButtonClickListener());
 
         textView = (TextView) findViewById(R.id.test_text);
+
     }
 
 
@@ -64,8 +70,8 @@ public class AccountActivity extends ActionBarActivity {
                 case R.id.QQ_Login:
                     doLoginQQ();
                     break;
+
                 case R.id.weibo_Login:
-                    Toast.makeText(getApplicationContext(), "即将接入", Toast.LENGTH_SHORT).show();
                     doLoginWeibo();
                     break;
 
@@ -78,59 +84,10 @@ public class AccountActivity extends ActionBarActivity {
 
     private void doLoginQQ() {
         startActivity(new Intent(this, QQ_OpenAPI.class));
-
-        /*String mAppid = "1104591741";
-        final Tencent mTencent = Tencent.createInstance(mAppid, getApplicationContext());
-
-        mTencent.login(AccountActivity.this, "all", new IUiListener() {
-            @Override
-            public void onComplete(Object o) {
-                Toast.makeText(getApplicationContext(), "Login successfully", Toast.LENGTH_SHORT).show();
-
-
-                final Message message = new Message();
-                message.obj = o;
-                message.what = 0;
-                mHandler.sendMessage(message);
-
-                QQToken qqToken = mTencent.getQQToken();
-                UserInfo info = new UserInfo(getApplicationContext(), qqToken);
-                info.getUserInfo(new IUiListener() {
-                    @Override
-                    public void onComplete(Object o) {
-                        Message msg = new Message();
-                        msg.obj = o;
-                        msg.what = 1;
-                        mHandler.sendMessage(msg);
-                    }
-
-                    @Override
-                    public void onError(UiError uiError) {
-
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onError(UiError uiError) {
-
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-        });*/
-
-
     }
 
     private void doLoginWeibo() {
+        startActivity(new Intent(this, Weibo_OpenAPI.class));
 
     }
 
