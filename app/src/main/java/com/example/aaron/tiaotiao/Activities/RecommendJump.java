@@ -36,6 +36,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 /**
  * Created by Aaron on 5/29/15.
+ * extends from SwipeBackActivity is enough to achieve swipeback gesture
  */
 public class RecommendJump extends SwipeBackActivity {
 
@@ -56,18 +57,6 @@ public class RecommendJump extends SwipeBackActivity {
 
     private Context mContext;
 
-    //swipeback
-    private int[] mBgColors;
-
-    private static int mBgIndex = 0;
-
-    private String mKeyTrackingMode;
-
-    private RadioGroup mTrackingModeGroup;
-
-    private SwipeBackLayout mSwipeBackLayout;
-
-
     //layout
     private class ViewHolder {
         private ImageView hostel_img;
@@ -84,10 +73,6 @@ public class RecommendJump extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recommend_jump);
         mContext = getApplicationContext();
-
-        mSwipeBackLayout = getSwipeBackLayout();
-        mSwipeBackLayout.setScrimColor(Color.TRANSPARENT);
-        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
 
         initView();
 

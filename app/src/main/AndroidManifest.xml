@@ -23,8 +23,10 @@
         <activity android:name=".Activities.AccountActivity" />
         <activity android:name=".Activities.RecommendJump"
             android:theme="@style/AppTheme.Transparent"/>
-        <activity android:name=".Activities.PartnerJump" />
-        <activity android:name=".Activities.GuideJump" />
+        <activity android:name=".Activities.PartnerJump"
+            android:theme="@style/AppTheme.Transparent"/>
+        <activity android:name=".Activities.GuideJump"
+            android:theme="@style/AppTheme.Transparent"/>
         <activity android:name=".OpenAPI.QQ_OpenAPI" />
         <activity android:name=".OpenAPI.Weibo_OpenAPI" />
         //sina weibo sdk activity, have to add this by hand

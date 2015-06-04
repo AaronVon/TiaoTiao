@@ -105,6 +105,7 @@ public class GuideFragment extends Fragment {
                         bundle.putString(KEY_JUMP, hashMap.get(KEY_JUMP).toString());
                         intent.putExtras(bundle);
                         startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
                     }
                 });
 

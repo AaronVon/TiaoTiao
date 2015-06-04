@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,10 +29,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
 /**
  * Created by Aaron on 5/30/15.
  */
-public class PartnerJump extends Activity {
+public class PartnerJump extends SwipeBackActivity {
     static final String KEY_JUMP = "jump";
     static final String NODE_NAME = "Partner";
 
@@ -49,6 +53,11 @@ public class PartnerJump extends Activity {
     Button follow_button, message_button;
 
     private Context mContext;
+
+    @Override
+    public void onBackPressed() {
+        scrollToFinishActivity();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

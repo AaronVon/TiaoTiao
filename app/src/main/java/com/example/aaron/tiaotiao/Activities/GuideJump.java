@@ -1,6 +1,7 @@
 package com.example.aaron.tiaotiao.Activities;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,10 +19,13 @@ import org.w3c.dom.NodeList;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
 /**
  * Created by Aaron on 5/30/15.
  */
-public class GuideJump extends Activity{
+public class GuideJump extends SwipeBackActivity{
     static final String KEY_JUMP = "jump";
     static final String NODE_NAME = "Skills";
 
@@ -35,6 +39,11 @@ public class GuideJump extends Activity{
 
     ImageView guide_img;
     TextView guide_title, guide_username, guide_user_gender, guide_date, guide_content;
+
+    @Override
+    public void onBackPressed() {
+        scrollToFinishActivity();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

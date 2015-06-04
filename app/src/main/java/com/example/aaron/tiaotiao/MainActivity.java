@@ -1,8 +1,15 @@
 package com.example.aaron.tiaotiao;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -35,6 +42,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        checkNetworkState();
         initView();
         initEvents();
 
@@ -46,6 +54,61 @@ public class MainActivity extends FragmentActivity {
             current_Fragment = fragment_1;
             ((TextView) findViewById(R.id.fragment_title)).setText("换宿");
         }
+    }
+
+    private void checkNetworkState() {
+        boolean isAvailable = false;
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (manager.getActiveNetworkInfo() != null) {
+            isAvailable = manager.getActiveNetworkInfo().isAvailable();
+        }
+        if (!isAvailable) {
+            setNetwork();
+        } else {
+            isNetworkAvailable();
+        }
+    }
+
+    private void isNetworkAvailable() {
+        Toast.makeText(this, "网络可用", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * if network is unavailable, call this method
+     * */
+    private void setNetwork() {
+        new AlertDialog.Builder(this)
+                .setIcon(R.drawable.ic_launcher)
+                .setTitle("网络提示信息")
+                .setMessage("网络不可用，请先设置网络")
+                .setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = null;
+//                        call different Setting by different SDK
+                        if (Build.VERSION.SDK_INT > 10) {
+                            intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+//                            intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+                        } else {
+                            intent = new Intent();
+                            ComponentName componentName = new ComponentName(
+                                    "com.android.settings",
+                                    "com.android.settings.WirelessSettings"
+                            );
+                            intent.setComponent(componentName);
+                            intent.setAction("android.intent.action.VIEW");
+                        }
+
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        null
+                    }
+                })
+                .show();
     }
 
 
@@ -130,28 +193,6 @@ public class MainActivity extends FragmentActivity {
 
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     class myButtonClickListener implements View.OnClickListener {
