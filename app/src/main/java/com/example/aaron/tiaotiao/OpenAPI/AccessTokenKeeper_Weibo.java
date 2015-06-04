@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
-import java.util.Comparator;
-
 /**
  * Created by Aaron on 6/2/15.
  */
