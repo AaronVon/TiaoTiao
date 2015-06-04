@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.aaron.tiaotiao.Activities.RecommendJump;
 import com.example.aaron.tiaotiao.Adapters.EntriesAdapter;
+import com.example.aaron.tiaotiao.MainActivity;
 import com.example.aaron.tiaotiao.Parsers.XMLParser;
 import com.example.aaron.tiaotiao.R;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -115,6 +116,8 @@ public class RecommendFragment extends Fragment {
                 bundle.putString(KEY_JUMP, hashMap.get(KEY_JUMP).toString());
                 intent.putExtras(bundle);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
+                //RecommendJump activity sliding in from right
             }
         });
 

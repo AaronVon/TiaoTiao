@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.print.PrintAttributes;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,10 +31,13 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.BreakIterator;
 
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
 /**
  * Created by Aaron on 5/29/15.
  */
-public class RecommendJump extends Activity{
+public class RecommendJump extends SwipeBackActivity {
 
     static final String KEY_JUMP = "jump";
     static final String NODE_NAME = "Display";
@@ -50,6 +56,18 @@ public class RecommendJump extends Activity{
 
     private Context mContext;
 
+    //swipeback
+    private int[] mBgColors;
+
+    private static int mBgIndex = 0;
+
+    private String mKeyTrackingMode;
+
+    private RadioGroup mTrackingModeGroup;
+
+    private SwipeBackLayout mSwipeBackLayout;
+
+
     //layout
     private class ViewHolder {
         private ImageView hostel_img;
@@ -57,10 +75,19 @@ public class RecommendJump extends Activity{
     }
 
     @Override
+    public void onBackPressed() {
+        scrollToFinishActivity();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recommend_jump);
         mContext = getApplicationContext();
+
+        mSwipeBackLayout = getSwipeBackLayout();
+        mSwipeBackLayout.setScrimColor(Color.TRANSPARENT);
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
 
         initView();
 

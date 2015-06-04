@@ -4,5 +4,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
-
+    <!--set activity transparent-->
+    <style name="AppTheme.Transparent">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>
