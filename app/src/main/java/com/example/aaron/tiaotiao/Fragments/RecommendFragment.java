@@ -124,7 +124,7 @@ public class RecommendFragment extends Fragment {
         mPullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
-                new GetDataTask().execute("top");
+//                new GetDataTask().execute("top");
             }
 
             @Override
