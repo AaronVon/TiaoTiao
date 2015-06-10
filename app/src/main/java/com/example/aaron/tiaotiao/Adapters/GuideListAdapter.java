@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.aaron.tiaotiao.LRUImageLoader.ImageLoader;
 import com.example.aaron.tiaotiao.R;
 import com.example.aaron.tiaotiao.WebImage.SetThumbnailIMG;
 
@@ -21,7 +22,7 @@ public class GuideListAdapter extends BaseAdapter {
 
     private LayoutInflater mLayoutInflater;
     private LinkedList<HashMap<String, Object>> items;
-    private Context context;
+    private ImageLoader mImageLoader;
 
     static final String KEY_IMG = "img";
     static final String KEY_ID = "id";
@@ -30,8 +31,8 @@ public class GuideListAdapter extends BaseAdapter {
 
     public GuideListAdapter(Context context, LinkedList<HashMap<String, Object>> items) {
         mLayoutInflater = LayoutInflater.from(context);
-        this.context = context;
         this.items = items;
+        mImageLoader = new ImageLoader();
     }
 
     @Override
@@ -66,7 +67,8 @@ public class GuideListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        new SetThumbnailIMG().execute(holder.guide_img, items.get(position).get(KEY_IMG).toString());
+//        new SetThumbnailIMG().execute(holder.guide_img, items.get(position).get(KEY_IMG).toString());
+        mImageLoader.displayImage(items.get(position).get(KEY_IMG).toString(), holder.guide_img);
         holder.guide_title.setText(items.get(position).get(KEY_TITLE).toString());
         holder.guide_id.setText(items.get(position).get(KEY_ID).toString());
         holder.guide_brief.setText(items.get(position).get(KEY_BRIEF).toString());

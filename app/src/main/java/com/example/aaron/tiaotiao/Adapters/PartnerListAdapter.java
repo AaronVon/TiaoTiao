@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.aaron.tiaotiao.LRUImageLoader.ImageLoader;
 import com.example.aaron.tiaotiao.R;
 import com.example.aaron.tiaotiao.WebImage.SetThumbnailIMG;
 
@@ -26,7 +27,7 @@ public class PartnerListAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private LinkedList<HashMap<String, Object>> items;
-    private Context mContext;
+    private ImageLoader mImageLoader;
 
     static final String KEY_IMG = "img";                //用户头像
     static final String KEY_ID = "id";                  //用户ID
@@ -37,7 +38,7 @@ public class PartnerListAdapter extends BaseAdapter {
     public PartnerListAdapter(Context context, LinkedList<HashMap<String, Object>> items) {
         mInflater = LayoutInflater.from(context);
         this.items = items;
-        this.mContext = context;
+        mImageLoader = new ImageLoader();
     }
 
 
@@ -79,12 +80,14 @@ public class PartnerListAdapter extends BaseAdapter {
 
         try {
             Bitmap bitmap = (Bitmap) roundImg.execute().get();
-            holder.user_thumbnail.setImageBitmap(bitmap);
+//            holder.user_thumbnail.setImageBitmap(bitmap);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
+        mImageLoader.displayImage(items.get(position).get(KEY_IMG).toString(), holder.user_thumbnail);
         holder.user_id.setText(items.get(position).get(KEY_ID).toString());
         holder.user_gender.setText(items.get(position).get(KEY_GENDER).toString());
         holder.user_destination.setText(items.get(position).get(KEY_DESTINATION).toString());

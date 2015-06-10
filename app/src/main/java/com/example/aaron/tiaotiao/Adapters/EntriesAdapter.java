@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.aaron.tiaotiao.LRUImageLoader.ImageLoader;
 import com.example.aaron.tiaotiao.R;
 import com.example.aaron.tiaotiao.WebImage.SetThumbnailIMG;
 
@@ -26,7 +27,7 @@ public class EntriesAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private LinkedList<HashMap<String, Object>> items;
-    private Context mContext;
+    private ImageLoader mImageLoader;
 
     static final String KEY_IMG = "img";        //旅店略缩图
     static final String KEY_ID = "id";          //旅店名字
@@ -37,7 +38,7 @@ public class EntriesAdapter extends BaseAdapter {
     public EntriesAdapter(Context context, LinkedList<HashMap<String, Object>> items) {
         mInflater = LayoutInflater.from(context);
         this.items = items;
-        this.mContext = context;
+        mImageLoader = new ImageLoader();
     }
 
     @Override
@@ -74,8 +75,8 @@ public class EntriesAdapter extends BaseAdapter {
         }
 
 
-        //setImageView(holder, position);
-        new SetThumbnailIMG().execute(holder.holder_room_img, items.get(position).get(KEY_IMG).toString());
+//        new SetThumbnailIMG().execute(holder.holder_room_img, items.get(position).get(KEY_IMG).toString());
+        mImageLoader.displayImage(items.get(position).get(KEY_IMG).toString(), holder.holder_room_img);
         holder.holder_room_id.setText(items.get(position).get(KEY_ID).toString());
         holder.holder_room_brief.setText(items.get(position).get(KEY_BRIEF).toString());
         holder.holder_room_period.setText(items.get(position).get(KEY_PERIOD).toString());
