@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.aaron.tiaotiao.LRUImageLoader.ImageLoader;
 import com.example.aaron.tiaotiao.R;
-import com.example.aaron.tiaotiao.WebImage.SetThumbnailIMG;
 
 import java.util.HashMap;
 import java.util.LinkedList;

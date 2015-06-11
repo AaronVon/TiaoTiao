@@ -1,4 +1,4 @@
-package com.example.aaron.tiaotiao.WebImage;
+package com.example.aaron.tiaotiao.WebUtility;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,7 +7,6 @@ import android.widget.ImageView;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.zip.ZipEntry;
 
 /**
  * Created by Aaron on 5/24/15.

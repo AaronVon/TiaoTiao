@@ -20,7 +20,7 @@ import java.util.Comparator;
  * Created by Aaron on 6/7/15.
  */
 public class ImageFileCache {
-    private static final String CACHE_DIR = "TiaoTiao";
+    private static final String CACHE_DIR = "TiaoTiao/imgCache";
     private static final String WHOLESALE_CONV = ".jpg";
     private static final int MB = 1024 * 1024;
     private static final int CACHE_SIZE = 10;
@@ -67,7 +67,7 @@ public class ImageFileCache {
             File dirCache = new File(dir);
             File file = new File(dir + "/" + fileName);
             if (!dirCache.exists()) {
-                if (dirCache.mkdir()) {
+                if (dirCache.mkdirs()) {
                     Log.d("EXTERNAL_STORAGE", "path created");
                 } else {
                     Log.d("EXTERNAL_STORAGE", "path create failed");

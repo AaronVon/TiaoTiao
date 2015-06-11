@@ -1,4 +1,4 @@
-package com.example.aaron.tiaotiao.WebImage;
+package com.example.aaron.tiaotiao.WebUtility;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

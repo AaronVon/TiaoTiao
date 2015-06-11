@@ -1,7 +1,5 @@
 package com.example.aaron.tiaotiao.Activities;
 
-import android.app.Activity;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +8,7 @@ import android.widget.TextView;
 
 import com.example.aaron.tiaotiao.Parsers.XMLParser;
 import com.example.aaron.tiaotiao.R;
-import com.example.aaron.tiaotiao.WebImage.SetThumbnailIMG;
+import com.example.aaron.tiaotiao.WebUtility.SetThumbnailIMG;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,7 +17,6 @@ import org.w3c.dom.NodeList;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 /**

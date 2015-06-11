@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.provider.Settings;
@@ -26,7 +27,16 @@ import com.example.aaron.tiaotiao.Activities.AccountActivity;
 import com.example.aaron.tiaotiao.Fragments.GuideFragment;
 import com.example.aaron.tiaotiao.Fragments.PartnerFragment;
 import com.example.aaron.tiaotiao.Fragments.RecommendFragment;
+import com.example.aaron.tiaotiao.Utilities.ExternalStorageUtil;
+import com.example.aaron.tiaotiao.Utilities.NetworkStatusUtil;
 import com.nineoldandroids.view.ViewHelper;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 
 public class MainActivity extends FragmentActivity {
@@ -35,17 +45,15 @@ public class MainActivity extends FragmentActivity {
     private Button button_1, button_2, button_3;
     private Fragment fragment_1, fragment_2, fragment_3, current_Fragment;
     private FragmentManager fragmentManager;
-
     long exitTime = 0;//calvulate time to exit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        initOnCreate();
         checkNetworkState();
         initView();
         initEvents();
-
         if (savedInstanceState == null) {
             fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
@@ -56,12 +64,58 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    private void checkNetworkState() {
-        boolean isAvailable = false;
-        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (manager.getActiveNetworkInfo() != null) {
-            isAvailable = manager.getActiveNetworkInfo().isAvailable();
+    private void initGlobally() {
+        //定义SharedPreference 对象可以被多个进程操作（后期可能需要优化）
+        SharedPreferences preferences = getSharedPreferences(getResources().getString(R.string.app_name), MODE_MULTI_PROCESS);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("isFirstin", false);
+        editor.commit();
+    }
+
+    private void initOnCreate() {
+        SharedPreferences preferences = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
+        boolean isFirstin = preferences.getBoolean("isFirstin", true);
+        if (isFirstin) {
+            String sdPath = new ExternalStorageUtil().getExternalStoragePath();
+            String xmlPath = sdPath + "/" + getResources().getString(R.string.app_name) + "/xmlCache";
+            File xmlFile = new File(xmlPath);
+            if (!xmlFile.exists()) {
+                xmlFile.mkdirs();
+            }
+
+            String recommendXML = xmlPath + "/" + getResources().getString(R.string.RecommendFragment) + ".xml";
+            String partnerXML = xmlPath + "/" + getResources().getString(R.string.PartnerFragment) + ".xml";
+            String guideXML = xmlPath + "/" + getResources().getString(R.string.GuideFragment) + ".xml";
+            String[] XMLFILENAME = {recommendXML, partnerXML, guideXML};
+
+            File[] XMLFILECACHE = new File[3];
+            for (int i = 0; i < XMLFILENAME.length; ++i) {
+                XMLFILECACHE[i] = new File(XMLFILENAME[i]);
+                if (!XMLFILECACHE[i].exists()) {
+                    try {
+                        XMLFILECACHE[i].createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    BufferedWriter bufferedWriter = new BufferedWriter(
+                            new OutputStreamWriter(new FileOutputStream(XMLFILECACHE[i]), "utf-8"));
+                    bufferedWriter.write(XML_CONTENT[i]);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            initGlobally();
         }
+    }
+
+    private void checkNetworkState() {
+        boolean isAvailable;
+        isAvailable = new NetworkStatusUtil(this).isAvailable();
         if (!isAvailable) {
             setNetwork();
         } else {
@@ -286,4 +340,34 @@ public class MainActivity extends FragmentActivity {
             finish();
         }
     }
+
+    private static final String[] XML_CONTENT = {"<listview>\n" +
+            "\t<hostel>\n" +
+            "\t\t<img>http://s2.51cto.com/wyfs02/M02/6D/EB/wKiom1Vu0yWQHvzsAAC8AURJf78887.jpg</img>\n" +
+            "\t\t<id>123</id>\n" +
+            "\t\t<brief>123</brief>\n" +
+            "\t\t<period>123</period>\n" +
+            "\t\t<price>123</price>\n" +
+            "\t\t<jump>123</jump>\n" +
+            "\t</hostel>\n" +
+            "</listview>",
+    "<listview>\n" +
+            "\t<pman>\n" +
+            "\t\t<id></id>\n" +
+            "\t\t<gender></gender>\n" +
+            "\t\t<img>http://h.hiphotos.baidu.com/image/w%3D310/sign=df4d01579c3df8dca63d8990fd1072bf/d833c895d143ad4b7e91496081025aafa50f06d6.jpg</img>\n" +
+            "\t\t<brief></brief>\n" +
+            "\t\t<destination></destination>\n" +
+            "\t\t<jump></jump>\n" +
+            "\t</pman>\n" +
+            "</listview>",
+    "<listview>\n" +
+            "\t<skills>\n" +
+            "\t\t<img>http://f.hiphotos.baidu.com/image/w%3D310/sign=e194b78d3f292df597c3aa148c305ce2/c83d70cf3bc79f3d8da69692bfa1cd11738b29c8.jpg</img>\n" +
+            "\t\t<id></id>\n" +
+            "\t\t<title></title>\n" +
+            "\t\t<brief></biref>\n" +
+            "\t\t<jump></jump>\n" +
+            "\t</skills>\n" +
+            "</listview>"};
 }

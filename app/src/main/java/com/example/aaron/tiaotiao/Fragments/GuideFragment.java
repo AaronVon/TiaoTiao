@@ -60,8 +60,8 @@ public class GuideFragment extends Fragment {
 
     private void initGuideList() {
         mLinkedList = new LinkedList<>();
-
-        new AsyncTask() {
+        
+        /*new AsyncTask() {
             NodeList nodeList;
             XMLParser xmlParser = null;
             Document document = null;
@@ -121,7 +121,7 @@ public class GuideFragment extends Fragment {
                     }
                 });
             }
-        }.execute();
+        }.execute();*/
     }
 
     private class GetDataTask extends AsyncTask {

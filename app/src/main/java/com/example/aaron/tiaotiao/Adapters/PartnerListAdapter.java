@@ -2,7 +2,6 @@ package com.example.aaron.tiaotiao.Adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +11,12 @@ import android.widget.TextView;
 
 import com.example.aaron.tiaotiao.LRUImageLoader.ImageLoader;
 import com.example.aaron.tiaotiao.R;
-import com.example.aaron.tiaotiao.WebImage.SetThumbnailIMG;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
-import com.example.aaron.tiaotiao.WebImage.toRoundImg;
+import com.example.aaron.tiaotiao.WebUtility.toRoundImg;
 
 /**
  * Created by Aaron on 5/24/15.

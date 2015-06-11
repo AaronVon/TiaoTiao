@@ -1,6 +1,7 @@
 package com.example.aaron.tiaotiao.Fragments;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,6 +45,7 @@ public class PartnerFragment extends Fragment{
     private PartnerListAdapter mAdapter;
     private ListView mListView;
     private Context mContext;
+    private boolean isNetworkAvailable;
 
     static final String partnerURL = "http://s.mymusise.com/pman/m";
 
@@ -69,6 +71,10 @@ public class PartnerFragment extends Fragment{
 
     private void initPartnerList() {
         mLinkedList = new LinkedList<>();
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getActiveNetworkInfo() != null) {
+            isNetworkAvailable = connectivityManager.getActiveNetworkInfo().isAvailable();
+        }
 
         new AsyncTask() {
             NodeList nodeList;

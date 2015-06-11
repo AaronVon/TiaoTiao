@@ -3,6 +3,7 @@ package com.example.aaron.tiaotiao.Fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,8 @@ import com.example.aaron.tiaotiao.Adapters.EntriesAdapter;
 import com.example.aaron.tiaotiao.MainActivity;
 import com.example.aaron.tiaotiao.Parsers.XMLParser;
 import com.example.aaron.tiaotiao.R;
+import com.example.aaron.tiaotiao.Utilities.NetworkStatusUtil;
+import com.example.aaron.tiaotiao.WebUtility.LoadXML;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -64,8 +67,26 @@ public class RecommendFragment extends Fragment {
     private void initRecommendEntries() {
 
         mLinkedList = new LinkedList<>();
+        NodeList nodeList;
+        XMLParser xmlParser;
+        Document document;
+        String xml = new LoadXML().getXML(recommendURL, getResources().getString(R.string.RecommendFragment), new NetworkStatusUtil(mContext).isAvailable());
+        xmlParser = new XMLParser();
+        document = xmlParser.getDomElement(xml);
+        nodeList = document.getElementsByTagName(KEY_HOSTEL);
+        for (int i = 0; i < nodeList.getLength(); ++i) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            Element e = (Element) nodeList.item(i);
+            hashMap.put(KEY_ID, xmlParser.getValue(e, KEY_ID));
+            hashMap.put(KEY_IMG, xmlParser.getValue(e, KEY_IMG));
+            hashMap.put(KEY_BRIEF, xmlParser.getValue(e, KEY_BRIEF));
+            hashMap.put(KEY_PERIOD, xmlParser.getValue(e, KEY_PERIOD));
+            hashMap.put(KEY_PRICE, xmlParser.getValue(e, KEY_PERIOD));
+            hashMap.put(KEY_JUMP, xmlParser.getValue(e, KEY_JUMP));
 
-        new AsyncTask() {
+            mLinkedList.add(hashMap);
+        }
+        /*new AsyncTask() {
             NodeList nodeList;
             XMLParser xmlParser = null;
             Document doc = null;
@@ -101,7 +122,7 @@ public class RecommendFragment extends Fragment {
                 mAdapter = new EntriesAdapter(mContext, mLinkedList);
                 mPullToRefreshListView.setAdapter(mAdapter);
             }
-        }.execute();
+        }.execute();*/
 
 
         mPullToRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -167,4 +188,5 @@ public class RecommendFragment extends Fragment {
             super.onPostExecute(o);
         }
     }
+
 }
