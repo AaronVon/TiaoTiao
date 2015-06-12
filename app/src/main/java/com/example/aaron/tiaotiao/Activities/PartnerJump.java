@@ -48,7 +48,8 @@ public class PartnerJump extends SwipeBackActivity {
     TextView username, title, gender, date, destination;
 
     Button follow_button, message_button;
-
+    static final String KEY_NETINFO = "netinfo";
+    boolean netAvailable;
     private Context mContext;
 
     @Override
@@ -59,10 +60,16 @@ public class PartnerJump extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.partner_jump);
-        mContext = getApplicationContext();
+        Bundle bundle = getIntent().getExtras();
+        netAvailable = bundle.getBoolean(KEY_NETINFO, false);
+        if (!netAvailable) {
+            setContentView(R.layout.blank_layout);
+        } else {
+            setContentView(R.layout.partner_jump);
+            mContext = getApplicationContext();
+            initView();
+        }
 
-        initView();
     }
 
     private void initView() {

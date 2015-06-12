@@ -73,17 +73,17 @@ public class PartnerListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-//        new SetThumbnailIMG().execute(holder.user_thumbnail, items.get(position).get(KEY_IMG).toString());
+        /*new SetThumbnailIMG().execute(holder.user_thumbnail, items.get(position).get(KEY_IMG).toString());
         toRoundImg roundImg = new toRoundImg(items.get(position).get(KEY_IMG).toString());
 
         try {
             Bitmap bitmap = (Bitmap) roundImg.execute().get();
-//            holder.user_thumbnail.setImageBitmap(bitmap);
+            holder.user_thumbnail.setImageBitmap(bitmap);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }
+        }*/
 
         mImageLoader.displayImage(items.get(position).get(KEY_IMG).toString(), holder.user_thumbnail);
         holder.user_id.setText(items.get(position).get(KEY_ID).toString());

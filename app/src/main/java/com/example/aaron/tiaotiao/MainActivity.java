@@ -366,7 +366,7 @@ public class MainActivity extends FragmentActivity {
             "\t\t<img>http://f.hiphotos.baidu.com/image/w%3D310/sign=e194b78d3f292df597c3aa148c305ce2/c83d70cf3bc79f3d8da69692bfa1cd11738b29c8.jpg</img>\n" +
             "\t\t<id></id>\n" +
             "\t\t<title></title>\n" +
-            "\t\t<brief></biref>\n" +
+            "\t\t<brief></brief>\n" +
             "\t\t<jump></jump>\n" +
             "\t</skills>\n" +
             "</listview>"};

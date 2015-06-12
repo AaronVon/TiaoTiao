@@ -23,6 +23,8 @@ import com.example.aaron.tiaotiao.Activities.GuideJump;
 import com.example.aaron.tiaotiao.Adapters.GuideListAdapter;
 import com.example.aaron.tiaotiao.Parsers.XMLParser;
 import com.example.aaron.tiaotiao.R;
+import com.example.aaron.tiaotiao.Utilities.NetworkStatusUtil;
+import com.example.aaron.tiaotiao.WebUtility.LoadXML;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -60,68 +62,55 @@ public class GuideFragment extends Fragment {
 
     private void initGuideList() {
         mLinkedList = new LinkedList<>();
-        
-        /*new AsyncTask() {
-            NodeList nodeList;
-            XMLParser xmlParser = null;
-            Document document = null;
+        NodeList nodeList;
+        XMLParser xmlParser;
+        Document document;
+        String xml = new LoadXML().getXML(guideURL, getResources().getString(R.string.GuideFragment), new NetworkStatusUtil(mContext).isAvailable());
 
+        xmlParser = new XMLParser();
+        document = xmlParser.getDomElement(xml);
+        nodeList = document.getElementsByTagName(KEY_GUIDE);
+        for (int i = 0; i < nodeList.getLength(); ++i) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            Element element = (Element) nodeList.item(i);
+            hashMap.put(KEY_TITLE, xmlParser.getValue(element, KEY_TITLE));
+            hashMap.put(KEY_IMG, xmlParser.getValue(element, KEY_IMG));
+            hashMap.put(KEY_BRIEF, xmlParser.getValue(element, KEY_BRIEF));
+            hashMap.put(KEY_ID, xmlParser.getValue(element, KEY_ID));
+            hashMap.put(KEY_JUMP, xmlParser.getValue(element, KEY_JUMP));
+            mLinkedList.add(hashMap);
+        }
+
+        mAdapter = new GuideListAdapter(mContext, mLinkedList);
+        mPullToRefreshListView.setAdapter(mAdapter);
+
+        mPullToRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            protected Object doInBackground(Object[] params) {
-                xmlParser = new XMLParser();
-                String xml = xmlParser.getXmlFromUrl(guideURL);
-                document = xmlParser.getDomElement(xml);
-                nodeList = document.getElementsByTagName(KEY_GUIDE);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ListView listView = (ListView) parent;
+                position -= listView.getHeaderViewsCount();
 
-                for (int i = 0; i < nodeList.getLength(); ++i) {
-                    HashMap<String, Object> map = new HashMap<String, Object>();
-                    Element e = (Element) nodeList.item(i);
+                HashMap<String, Object> hashMap = (HashMap<String, Object>) mLinkedList.get(position);
+                Intent intent = new Intent(mContext, GuideJump.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(KEY_JUMP, hashMap.get(KEY_JUMP).toString());
+                intent.putExtras(bundle);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
+            }
+        });
 
-                    map.put(KEY_TITLE, xmlParser.getValue(e, KEY_TITLE));
-                    map.put(KEY_IMG, xmlParser.getValue(e, KEY_IMG));
-                    map.put(KEY_BRIEF, xmlParser.getValue(e, KEY_BRIEF));
-                    map.put(KEY_ID, xmlParser.getValue(e, KEY_ID));
-                    map.put(KEY_JUMP, xmlParser.getValue(e, KEY_JUMP));
+        mPullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
 
-                    mLinkedList.add(map);
-                }
-
-                return null;
             }
 
             @Override
-            protected void onPostExecute(Object o) {
-                mAdapter = new GuideListAdapter(mContext, mLinkedList);
-                mPullToRefreshListView.setAdapter(mAdapter);
-                mPullToRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        ListView listView = (ListView) parent;
-                        position -= listView.getHeaderViewsCount();
-
-                        HashMap<String, Object> hashMap = (HashMap<String, Object>) mLinkedList.get(position);
-                        Intent intent = new Intent(mContext, GuideJump.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString(KEY_JUMP, hashMap.get(KEY_JUMP).toString());
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
-                    }
-                });
-
-                mPullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-                    @Override
-                    public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-
-                    }
-
-                    @Override
-                    public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                        new GetDataTask().execute("bottom");
-                    }
-                });
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                new GetDataTask().execute("bottom");
             }
-        }.execute();*/
+        });
     }
 
     private class GetDataTask extends AsyncTask {

@@ -45,6 +45,9 @@ public class LoadXML {
         String[] params = {xmlUrl, fragment};
         try {
             xml = new LoadAsync().execute(params).get().toString();
+            if (null == xml || xml == "") {
+                xml = loadFromSD(fragment);
+            }
         } catch (Exception e) {
             Log.d(TAG_D, e.toString());
         }
@@ -104,6 +107,11 @@ public class LoadXML {
             } catch (Exception e) {
                 Log.d(TAG_D, e.toString());
             }
+            Log.d(TAG_D, "hello this is xml content: " + xml.toString());
+            /*//如果 http 获取列表失败，则从本地SD 加载。
+            if (xml.toString() == "" || xml.toString() == null) {
+                return loadFromSD(params[1].toString());
+            }*/
 
             return xml.toString();
         }
